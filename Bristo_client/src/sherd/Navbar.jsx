@@ -8,7 +8,7 @@ const Navbar = () => {
     <input id="my-drawer-3" type="checkbox" className="drawer-toggle" /> 
     <div className="drawer-content flex flex-col">
       {/* Navbar */}
-      <div className="w-[1500px] navbar mx-auto bg-black opacity-60 ">
+      <div className="w-[1500px] navbar  bg-black opacity-60 ">
   
       {/**navbar 1500px */}
       <div className=' w-full max-w-[1500px] mx-auto '>
@@ -23,11 +23,13 @@ const Navbar = () => {
             {/* Navbar menu content here */}
   
             <div className='flex gap-3 justify-center items-center  '>
-            <NavLink className='' to='/about'>Home </NavLink>
+            <NavLink className='' to='/'>Home </NavLink>
             <NavLink to='/contact'>Contacts </NavLink>
             <NavLink to='/contact'>DASHBOARD</NavLink>
-            <NavLink to='/login'>Our Menu </NavLink>
-            <NavLink to='/login'>Our Shop </NavLink>
+            <NavLink to='/menu'>Our Menu </NavLink>
+
+            {/** <NavLink to='/order/salad'>Order Shop </NavLink> */}
+            <NavLink to='/order'>Order Shop </NavLink>
             <Link><button>Login</button></Link>
             </div>
           </div>
