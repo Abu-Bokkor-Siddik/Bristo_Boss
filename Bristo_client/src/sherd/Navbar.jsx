@@ -27,9 +27,10 @@ const Navbar = () => {
             <NavLink to='/contact'>Contacts </NavLink>
             <NavLink to='/contact'>DASHBOARD</NavLink>
             <NavLink to='/menu'>Our Menu </NavLink>
+            <NavLink to='/login'>Login</NavLink>
 
             {/** <NavLink to='/order/salad'>Order Shop </NavLink> */}
-            <NavLink to='/order/salad'>Order Shop </NavLink>
+            <NavLink to='/order/Salad'>Order Shop </NavLink>
             <Link><button>Login</button></Link>
             </div>
           </div>
