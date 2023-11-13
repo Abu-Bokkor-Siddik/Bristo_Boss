@@ -1,26 +1,37 @@
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect,  useState } from 'react';
 import loginImg  from '../assets/others/authentication1.png'
 import { loadCaptchaEnginge, LoadCanvasTemplate,validateCaptcha } from 'react-simple-captcha';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { Authcontex } from './privet/Authprovider';
 
 const Login = () => {
-  const capchaRef = useRef(null)
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  const from = location?.state?.from?.pathname || '/';
+
   const [desable,setdesable]=useState(true)
   useEffect(()=>{
     loadCaptchaEnginge(6);
   },[])
-
+ const {logins}=useContext(Authcontex)
 
   const handel = (e)=>{
     e.preventDefault()
     const email = e.target.email.value
     const password = e.target.password.value
+    logins(email,password)
+    .then(res => {
+      alert('successfully login')
+      navigate(from,{replace:true})
+      console.log(res)})
+    .catch(err => console.log(err))
     console.log(email,password)
   }
 
 
-  const handelValidateCaptcha=()=>{
- const user_captcha_value =capchaRef.current.value;
+  const handelValidateCaptcha=(e)=>{
+ const user_captcha_value =e.target.value;
  console.log(user_captcha_value)
  if(validateCaptcha(user_captcha_value)){
 setdesable(false)
@@ -47,7 +58,7 @@ setdesable(false)
           <label className="label">
             <span className="label-text">Password</span>
           </label>
-          <input name='password' type="password" placeholder="password" className="input input-bordered"  />
+          <input  name='password' type="password" placeholder="password" className="input input-bordered"  />
           <label className="label">
             <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
           </label>
@@ -60,8 +71,8 @@ setdesable(false)
             <LoadCanvasTemplate />
 
             </label>
-            <input ref={capchaRef} name='captcha' type="text" placeholder="type captcha" className="input input-bordered" required />
-            <button onClick={handelValidateCaptcha} className='btn btn-neutral btn-xs'>Validation</button>
+            <input  onBlur={handelValidateCaptcha} name='captcha' type="text" placeholder="type captcha" className="input input-bordered" required />
+           
             
           </div>
 

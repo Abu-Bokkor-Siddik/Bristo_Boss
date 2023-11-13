@@ -5,6 +5,8 @@ import Manu from "./Manu";
 import Order from "./Order";
 import Login from "./Login";
 import SignIn from "./signin/SignIn";
+import Contact from "./Contact";
+import Privet from "./privet/Privet";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +34,11 @@ const router = createBrowserRouter([
       {
         path:'/regi',
         element:<SignIn></SignIn>
+     
+      },
+      {
+        path:'/contact',
+        element:<Privet><Contact></Contact></Privet>
      
       },
       

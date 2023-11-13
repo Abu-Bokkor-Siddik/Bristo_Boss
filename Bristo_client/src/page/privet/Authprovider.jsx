@@ -20,7 +20,7 @@ return signOut(auth)
 }
 
 // login
-const login =(email,password)=>{
+const logins =(email,password)=>{
   setloading(true)
   return signInWithEmailAndPassword(auth,email,password)
 }
@@ -39,7 +39,7 @@ const login =(email,password)=>{
 
 
 
-    const info = {user,loading,login,regisster,logout}
+    const info = {user,loading,logins,regisster,logout}
   return (
     <Authcontex.Provider value={info}>
           {children}

@@ -1,7 +1,15 @@
 
+import { useContext } from 'react'
 import { Link, NavLink } from 'react-router-dom'
+import { Authcontex } from '../page/privet/Authprovider'
 
 const Navbar = () => {
+  const {user,logout}=useContext(Authcontex)
+  const handlOut=()=>{
+     logout()
+     .then(res => console.log(res))
+     .catch(err => console.log(err))
+  }
   return (
     <div className=''>
     <div className="drawer fixed z-20 text-white  ">
@@ -25,13 +33,16 @@ const Navbar = () => {
             <div className='flex gap-3 justify-center items-center  '>
             <NavLink className='' to='/'>Home </NavLink>
             <NavLink to='/contact'>Contacts </NavLink>
-            <NavLink to='/contact'>DASHBOARD</NavLink>
+            <NavLink to='/'>DASHBOARD</NavLink>
             <NavLink to='/menu'>Our Menu </NavLink>
-            <NavLink to='/login'>Login</NavLink>
+           {
+            user ?  <NavLink ><button onClick={handlOut} className='btn btn-neutral'>Log Out</button></NavLink>: <NavLink to='/login'>Login</NavLink>
 
+
+           }
             {/** <NavLink to='/order/salad'>Order Shop </NavLink> */}
             <NavLink to='/order/Salad'>Order Shop </NavLink>
-            <Link><button>Login</button></Link>
+           
             </div>
           </div>
         </div>
