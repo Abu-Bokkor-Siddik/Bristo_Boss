@@ -29,7 +29,7 @@ const Navbar = () => {
             <NavLink to='/menu'>Our Menu </NavLink>
 
             {/** <NavLink to='/order/salad'>Order Shop </NavLink> */}
-            <NavLink to='/order'>Order Shop </NavLink>
+            <NavLink to='/order/salad'>Order Shop </NavLink>
             <Link><button>Login</button></Link>
             </div>
           </div>

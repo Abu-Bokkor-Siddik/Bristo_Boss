@@ -18,8 +18,8 @@ const router = createBrowserRouter([
         element: <Manu></Manu>,
       },
       {
-        // path: "/order/:category",
-        path: "/order",
+        path: "/order/:category",
+        // path: "/order",
         element: <Order></Order>,
       },
     ],

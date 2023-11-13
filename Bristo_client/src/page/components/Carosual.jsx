@@ -9,7 +9,7 @@ import img6 from '../../assets/home/06.png'
 
 const Carosual = () => {
   return (
-    <Carousel className=" z-10">
+    <Carousel className=" z-10 text-center">
                 <div>
                     <img src={img1} />
                     

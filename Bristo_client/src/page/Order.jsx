@@ -8,12 +8,12 @@ import FoodCard from './components/FoodCard';
 import { useParams } from 'react-router-dom';
 
 const Order = () => {
-    // const categories =['Salad','Pizza','Soup','Dessert','Drinks']
-    // const {category} =useParams()
-    // const initialIndex = categories.indexOf(category)
+    const categories =['Salad','Pizza','Soup','Dessert','Drinks']
+    const {category} =useParams()
+    const initialIndex = categories.indexOf(category)
     // /initialIndex
 
-    const [tabindexs,settabindexs]=useState(0)
+    const [tabindexs,settabindexs]=useState(initialIndex)
  
 //  console.log(category)
     const[Menu]=useMenu()

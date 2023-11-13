@@ -16,7 +16,7 @@ const MenuCategory = ({items,coverimg,title}) => {
     {
         items.map(item=><ManuCard key={item._id} item={item}></ManuCard>)
     }</div>
-    { title&&<Link className="btn btn-neutral text-center flex justify-center w-40 mx-auto" to={`/order`}> <button className="">Order Now</button></Link>}
+    { title&&<Link className="btn btn-neutral text-center flex justify-center w-40 mx-auto" to={`/order/${title}`}> <button className="">Order Now</button></Link>}
     </div>
     
   )
