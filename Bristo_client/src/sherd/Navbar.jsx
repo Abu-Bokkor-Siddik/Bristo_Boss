@@ -2,6 +2,9 @@
 import { useContext } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import { Authcontex } from '../page/privet/Authprovider'
+import { BsCart4  } from 'react-icons/bs';
+import useTanstack from '../page/Hooks/useTanstack';
+import { useQuery } from '@tanstack/react-query';
 
 const Navbar = () => {
   const {user,logout}=useContext(Authcontex)
@@ -10,6 +13,22 @@ const Navbar = () => {
      .then(res => console.log(res))
      .catch(err => console.log(err))
   }
+
+  // tanstack use 
+  
+
+
+  // const {data,refetch } = useQuery({
+  
+  //   queryKey: ['carts',user?.email],
+  //   queryFn: () =>
+  //     fetch(`http://localhost:3000/carts?email=${user.email}`).then(
+  //       (res) => res.json(),
+  //     ),
+  // })
+const{data,refetch}=useTanstack()
+
+console.log('data length is here',data?.length)
   return (
     <div className=''>
     <div className="drawer fixed z-20 text-white  ">
@@ -35,13 +54,18 @@ const Navbar = () => {
             <NavLink to='/contact'>Contacts </NavLink>
             <NavLink to='/'>DASHBOARD</NavLink>
             <NavLink to='/menu'>Our Menu </NavLink>
+            <NavLink to='/order/Salad'>Order Shop </NavLink>
            {
             user ?  <NavLink ><button onClick={handlOut} className='btn btn-neutral'>Log Out</button></NavLink>: <NavLink to='/login'>Login</NavLink>
 
 
            }
+           <button className="btn">
+           <BsCart4></BsCart4>
+          <div className="badge badge-secondary">{data?.length}</div>
+</button>
+
             {/** <NavLink to='/order/salad'>Order Shop </NavLink> */}
-            <NavLink to='/order/Salad'>Order Shop </NavLink>
            
             </div>
           </div>
