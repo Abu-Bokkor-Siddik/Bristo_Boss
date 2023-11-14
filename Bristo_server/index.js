@@ -30,6 +30,22 @@ async function run() {
 
 
     const menuCollection = client.db("bristoDB").collection("menu");
+    const cartCollection = client.db("bristoDB").collection("cart");
+// post method  and carts collection 
+    app.post('/carts',async(req,res)=>{
+      const cartItem = req.body;
+      const result = await cartCollection.insertOne(cartItem)
+      res.send(result)
+    })
+    app.get('/carts',async(req,res)=>{
+      const email=req.query.email 
+      const query={email:email};
+      console.log(email)
+      const result = await cartCollection.find(query).toArray()
+      res.send(result)
+    })
+
+    // menu collection
     app.get('/menu',async(req,res)=>{
         const result = await menuCollection.find().toArray()
         res.send(result)
