@@ -31,6 +31,14 @@ async function run() {
 
     const menuCollection = client.db("bristoDB").collection("menu");
     const cartCollection = client.db("bristoDB").collection("cart");
+    const userCollection = client.db("bristoDB").collection("user");
+
+    // user realeted api 
+    app.post('/users',async(req,res)=>{
+      const user = req.body;
+      const result = await userCollection.insertOne(user)
+      res.send(result);
+    })
 // post method  and carts collection 
     app.post('/carts',async(req,res)=>{
       const cartItem = req.body;
