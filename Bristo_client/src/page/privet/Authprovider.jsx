@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "firebase/auth"
+import { GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth"
 import { createContext, useEffect, useState } from "react"
 import auth from "../firebase/firebaseConfig"
 
@@ -18,12 +18,35 @@ const logout = ()=>{
   setloading(true)
 return signOut(auth)
 }
+// google korbo 
+const provider = new GoogleAuthProvider();
+
+const google =()=>{
+    setloading(true)
+    return signInWithPopup(auth,provider)
+}
+
+const profile =(name)=>{
+  setloading(true)
+  return updateProfile(auth.currentUser, {
+      displayName:name
+      
+    })
+
+}
+
+
 
 // login
 const logins =(email,password)=>{
   setloading(true)
   return signInWithEmailAndPassword(auth,email,password)
 }
+
+
+
+
+
 
     useEffect(()=>{
       const unsubcriber = onAuthStateChanged(auth, (currect) => {
@@ -39,7 +62,7 @@ const logins =(email,password)=>{
 
 
 
-    const info = {user,loading,logins,regisster,logout}
+    const info = {user,loading,logins,regisster,logout,google,profile}
   return (
     <Authcontex.Provider value={info}>
           {children}

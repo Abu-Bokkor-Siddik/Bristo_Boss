@@ -26,9 +26,14 @@ const Navbar = () => {
   //       (res) => res.json(),
   //     ),
   // })
-const{data,refetch}=useTanstack()
 
-console.log('data length is here',data?.length)
+  // user?.email 
+  // diye dite pari 
+
+  
+const{data,refetch}=useTanstack()
+ console.log(data,'here')
+// console.log('data length is here',data?.length)
   return (
     <div className=''>
     <div className="drawer fixed z-20 text-white  ">
@@ -52,7 +57,7 @@ console.log('data length is here',data?.length)
             <div className='flex gap-3 justify-center items-center  '>
             <NavLink className='' to='/'>Home </NavLink>
             <NavLink to='/contact'>Contacts </NavLink>
-            <NavLink to='/'>DASHBOARD</NavLink>
+            <NavLink to='/dashboard'>DASHBOARD</NavLink>
             <NavLink to='/menu'>Our Menu </NavLink>
             <NavLink to='/order/Salad'>Order Shop </NavLink>
            {

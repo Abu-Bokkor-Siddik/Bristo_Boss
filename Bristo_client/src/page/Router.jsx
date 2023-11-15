@@ -7,6 +7,8 @@ import Login from "./Login";
 import SignIn from "./signin/SignIn";
 import Contact from "./Contact";
 import Privet from "./privet/Privet";
+import Dashboard from "./layout/Dashboard";
+import Card from "./layout/Card";
 
 const router = createBrowserRouter([
   {
@@ -42,10 +44,21 @@ const router = createBrowserRouter([
      
       },
       
-    ],
+    ]
+    
     
     
   },
+  {
+    path:'/dashboard',
+    element:<Dashboard></Dashboard>,
+    children:[
+      {
+        path:'card',
+        element:<Card></Card>
+      }
+    ]
+  }
 
 
 ]);

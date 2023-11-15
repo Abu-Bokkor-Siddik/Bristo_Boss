@@ -14,7 +14,12 @@ const Login = () => {
   useEffect(()=>{
     loadCaptchaEnginge(6);
   },[])
- const {logins}=useContext(Authcontex)
+ const {logins,google}=useContext(Authcontex)
+ const googles=()=>{
+  google()
+  .then(res => console.log(res.user))
+
+ }
 
   const handel = (e)=>{
     e.preventDefault()
@@ -85,7 +90,7 @@ setdesable(false)
         </form>
         <p className='text-center'>New here?<Link className='text-blue-800' to='/regi'> Create a New Account</Link></p>
         <p  className='text-center my-5'>Or sign in with</p>
-        <div className='flex justify-center items-center gap-10 my-5'><button className='btn btn-neutral'>Fb</button><button className='btn btn-neutral'>G</button><button className='btn btn-neutral'>Git</button></div>
+        <div className='flex justify-center items-center gap-10 my-5'><button className='btn btn-neutral'>Fb</button><button  onClick={googles} className='btn btn-neutral'>G</button><button className='btn btn-neutral'>Git</button></div>
       </div>
     </div>
   </div>
