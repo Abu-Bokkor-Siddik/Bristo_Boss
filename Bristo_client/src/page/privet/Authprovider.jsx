@@ -1,11 +1,15 @@
 import { GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth"
 import { createContext, useEffect, useState } from "react"
 import auth from "../firebase/firebaseConfig"
+import useAxiosP from "../Hooks/useAxiosP"
 
  export const Authcontex = createContext(null)
 const Authprovider = ({children}) => {
     const [user,setuser]=useState(null)
     const [loading,setloading]=useState(true)
+
+    // AxiosP
+    const AxiosP =useAxiosP();
 
 
     // register
@@ -52,13 +56,27 @@ const logins =(email,password)=>{
       const unsubcriber = onAuthStateChanged(auth, (currect) => {
         
          setuser(currect)
+         if(currect){
+          const userinfo = {email:currect?.email}
+          AxiosP.post('/jwt',userinfo)
+          .then(res => {
+            console.log(res.data.token)
+            if(res.data.token){
+              localStorage.setItem('access-token',res.data.token)
+            }
+          })
+
+         }else{
+          //  do somethings 
+          localStorage.removeItem('access-token')
+         }
          setloading(false)
   
     })
       return ()=>{
           return unsubcriber()
       }
-  },[])
+  },[AxiosP])
 
 
 

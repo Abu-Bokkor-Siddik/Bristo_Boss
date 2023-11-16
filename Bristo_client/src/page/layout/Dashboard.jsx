@@ -1,14 +1,15 @@
 import { NavLink, Outlet } from "react-router-dom"
+import useAdmin from "../Hooks/useAdmin";
 
 
 const Dashboard = () => {
   // Todo 
-  const isAdmit =true;
+  const[ isAdmin] =useAdmin();
 
   return (
     <div className="flex max-w-6xl mx-auto my-16">
       <div className="w-64 min-h-full flex flex-col bg-orange-400">
-      { isAdmit?
+      { isAdmin?
         <div className="flex flex-col p-8">
         <NavLink to="/dashboard/admin">Admin Home</NavLink>
       <NavLink to="/dashboard/add">add items</NavLink>
