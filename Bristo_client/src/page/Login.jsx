@@ -3,6 +3,7 @@ import loginImg  from '../assets/others/authentication1.png'
 import { loadCaptchaEnginge, LoadCanvasTemplate,validateCaptcha } from 'react-simple-captcha';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Authcontex } from './privet/Authprovider';
+import useAxiosP from './Hooks/useAxiosP';
 
 const Login = () => {
   const navigate = useNavigate()
@@ -15,9 +16,22 @@ const Login = () => {
     loadCaptchaEnginge(6);
   },[])
  const {logins,google}=useContext(Authcontex)
+ const axiosP= useAxiosP()
+
  const googles=()=>{
   google()
-  .then(res => console.log(res.user))
+  .then(res =>{
+    const userinfo ={
+      email:res.user?.email,
+      name :res.user?.displayName
+    }
+    axiosP.post('/users',userinfo)
+    .then(res => {
+     
+      navigate('/')
+      console.log(res.data)})
+    
+    console.log(res.user)})
 
  }
 

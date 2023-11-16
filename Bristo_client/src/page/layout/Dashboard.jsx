@@ -2,18 +2,36 @@ import { NavLink, Outlet } from "react-router-dom"
 
 
 const Dashboard = () => {
+  // Todo 
+  const isAdmit =true;
+
   return (
     <div className="flex max-w-6xl mx-auto my-16">
       <div className="w-64 min-h-full flex flex-col bg-orange-400">
+      { isAdmit?
+        <div className="flex flex-col p-8">
+        <NavLink to="/dashboard/admin">Admin Home</NavLink>
+      <NavLink to="/dashboard/add">add items</NavLink>
+      <NavLink to="/dashboard/items">manage items</NavLink>
+      <NavLink to="/dashboard/booking">Manage bookings</NavLink>
+      <NavLink to="/dashboard/allusers">all users</NavLink>
       
-
-
-      <NavLink to="/dashboard/user">User Home</NavLink>
+        
+        </div>
+        :<div className="flex flex-col p-8">
+        <NavLink to="/dashboard/user">User Home</NavLink>
       <NavLink to="/dashboard/reservation"> Reservation</NavLink>
       <NavLink to="/dashboard/card">Payment</NavLink>
       <NavLink to="/dashboard/card"> My Card</NavLink>
       <NavLink to="/dashboard/card">Add Review</NavLink>
       <NavLink to="/dashboard/card">My Booking</NavLink>
+        
+        </div>}
+
+
+      
+
+      {/**sheair navlinks */}
       <div className="divider">OR</div>
 
       <NavLink className='' to='/'>Home </NavLink>

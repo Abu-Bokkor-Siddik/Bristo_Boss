@@ -9,6 +9,7 @@ import Contact from "./Contact";
 import Privet from "./privet/Privet";
 import Dashboard from "./layout/Dashboard";
 import Card from "./layout/Card";
+import Allusers from "./layout/Allusers";
 
 const router = createBrowserRouter([
   {
@@ -56,7 +57,11 @@ const router = createBrowserRouter([
       {
         path:'card',
         element:<Card></Card>
-      }
+      },
+      {
+        path:'allusers',
+        element:<Allusers></Allusers>
+      },
     ]
   }
 
