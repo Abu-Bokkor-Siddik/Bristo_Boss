@@ -11,7 +11,7 @@ console.log(process.env.DB_NAME)
 console.log(process.env.DB_PASS)
 
 
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 const uri = `mongodb+srv://${process.env.DB_NAME}:${process.env.DB_PASS}@cluster0.kkqbu90.mongodb.net/?retryWrites=true&w=majority`;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
@@ -36,8 +36,38 @@ async function run() {
     // user realeted api 
     app.post('/users',async(req,res)=>{
       const user = req.body;
+      // dublicate user ke bad dibo 
+      const query={email:user.email}
+      const exsixting = await userCollection.findOne(query)
+      if(exsixting){
+        return res.send({message:'user already exist ',insertedId : null})
+      }
+
       const result = await userCollection.insertOne(user)
       res.send(result);
+    })
+    app.get('/users',async(req,res)=>{
+     const result = await userCollection.find().toArray()
+     res.send(result)
+    })
+    // delete user for all user .....route 
+    app.delete('/users/:id',async(req,res)=>{
+      const id = req.params.id 
+      const query ={_id:new ObjectId(id)}
+      const result = await userCollection.deleteOne(query);
+      res.send(result)
+    })
+    // i want to putch admit so i call an api 
+    app.patch('/users/admin/:id',async(req,res)=>{
+      const id = req.params.id 
+      const filter = {_id :new ObjectId(id)}
+      const updateDoc = {
+        $set: {
+         role:'admin'
+        },
+      }
+      const result = await userCollection.updateOne(filter, updateDoc)
+      res.send(result)
     })
 // post method  and carts collection 
     app.post('/carts',async(req,res)=>{
