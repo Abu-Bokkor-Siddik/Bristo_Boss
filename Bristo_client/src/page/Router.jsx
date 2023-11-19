@@ -10,6 +10,10 @@ import Privet from "./privet/Privet";
 import Dashboard from "./layout/Dashboard";
 import Card from "./layout/Card";
 import Allusers from "./layout/Allusers";
+import Additem from "./layout/Additem";
+import AdminPrivet from "./privet/AdminPrivet";
+import ManageItem from "./layout/ManageItem";
+import Prayment from "./layout/Prayment";
 
 const router = createBrowserRouter([
   {
@@ -59,8 +63,20 @@ const router = createBrowserRouter([
         element:<Card></Card>
       },
       {
+       path:'payment',
+       element:<Prayment></Prayment>
+      },
+      {
         path:'allusers',
         element:<Allusers></Allusers>
+      },
+      {
+        path:'add',
+        element:<AdminPrivet><Additem></Additem></AdminPrivet>
+      },
+      {
+        path:'manageitem',
+        element:<AdminPrivet><ManageItem></ManageItem></AdminPrivet>
       },
     ]
   }

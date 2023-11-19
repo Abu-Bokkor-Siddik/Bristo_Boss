@@ -12,8 +12,8 @@ const Dashboard = () => {
       { isAdmin?
         <div className="flex flex-col p-8">
         <NavLink to="/dashboard/admin">Admin Home</NavLink>
-      <NavLink to="/dashboard/add">add items</NavLink>
-      <NavLink to="/dashboard/items">manage items</NavLink>
+      <NavLink to="/dashboard/add">Add items</NavLink>
+      <NavLink to="/dashboard/manageitem">Manage items</NavLink>
       <NavLink to="/dashboard/booking">Manage bookings</NavLink>
       <NavLink to="/dashboard/allusers">all users</NavLink>
       

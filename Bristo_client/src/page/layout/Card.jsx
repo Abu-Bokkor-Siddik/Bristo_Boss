@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom"
 import useTanstack from "../Hooks/useTanstack"
 
 
@@ -10,7 +11,7 @@ const Card = () => {
       <div className="flex gap-10">
       <h1 className="text-4xl">Total card {data?.length}</h1>
       <h1 className="text-4xl">Total price {totalP}</h1>
-      <button className="btn btn-neutral">pray </button>
+    {data.length?<Link to='/dashboard/payment'> <button className="btn btn-neutral">pray </button></Link>:<button  disabled className="btn btn-neutral">pray </button>}
       
       </div>
 

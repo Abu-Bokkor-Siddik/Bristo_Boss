@@ -10,7 +10,7 @@ import useAxios from "./useAxios"
 const useAdmin = () => {
     const{user}=useContext(Authcontex)
     const Axioscicure =useAxios()
- const {data:isAdmin}=useQuery({
+ const {data:isAdmin,isPending}=useQuery({
     queryKey: ["isAdmin", user?.email],
 
     queryFn: async () => {
@@ -21,7 +21,7 @@ const useAdmin = () => {
 
 
  })
- return [isAdmin]
+ return [isAdmin,isPending]
 }
 
 export default useAdmin
