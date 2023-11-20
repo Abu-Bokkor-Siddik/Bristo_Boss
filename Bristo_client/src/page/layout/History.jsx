@@ -1,24 +1,23 @@
-import { Link } from "react-router-dom"
-import useTanstack from "../Hooks/useTanstack"
+import { useContext } from "react"
+import { Authcontex } from "../privet/Authprovider"
+import { useQuery } from "@tanstack/react-query"
+import useAxios from "../Hooks/useAxios"
 
 
-const Card = () => {
-    const{data,refetch}=useTanstack()
+const History = () => {
+    const Axioscicure =useAxios()
+    const {user}=useContext(Authcontex)
+    const {data}=useQuery({
+        queryKey:['history',user?.email],
+        queryFn:async()=>{
+              const res = await Axioscicure.get(`/payments/${user.email}`)
+              return res.data 
+        }
+    })
     console.log(data)
-    const totalP= data?.reduce((total,item)=> total+item.price,0)
   return (
-    <div>
-      <div className="flex gap-10">
-      <h1 className="text-4xl">Total card {data?.length}</h1>
-      <h1 className="text-4xl">Total price {totalP}</h1>
-    {data?.length?<Link to='/dashboard/payment'> <button className="btn btn-neutral">pray </button></Link>:<button  disabled className="btn btn-neutral">pray </button>}
-      
-      </div>
-
-
-
-
-      <div className="overflow-x-auto">
+    <div><h1> Payments History</h1>
+    <div className="overflow-x-auto">
   <table className="table">
     {/* head */}
     <thead>
@@ -55,9 +54,9 @@ const Card = () => {
               </div>
             </td>
             <td>
-              Zemlak, Daniel and Leannon
+              {item.transectionId}
               <br/>
-              <span className="badge badge-ghost badge-sm">Desktop Support Technician</span>
+              <span className="badge badge-ghost badge-sm">{item.email}</span>
             </td>
             <td>Purple</td>
             <th>
@@ -72,8 +71,9 @@ const Card = () => {
     
   </table>
 </div>
+   
     </div>
   )
 }
 
-export default Card
+export default History

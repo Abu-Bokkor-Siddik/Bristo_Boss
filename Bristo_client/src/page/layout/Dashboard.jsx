@@ -21,7 +21,7 @@ const Dashboard = () => {
         </div>
         :<div className="flex flex-col p-8">
         <NavLink to="/dashboard/user">User Home</NavLink>
-      <NavLink to="/dashboard/reservation"> Reservation</NavLink>
+      <NavLink to="/dashboard/history">Pay History</NavLink>
       <NavLink to="/dashboard/card">Payment</NavLink>
       <NavLink to="/dashboard/card"> My Card</NavLink>
       <NavLink to="/dashboard/card">Add Review</NavLink>

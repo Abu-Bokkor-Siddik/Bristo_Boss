@@ -14,6 +14,7 @@ import Additem from "./layout/Additem";
 import AdminPrivet from "./privet/AdminPrivet";
 import ManageItem from "./layout/ManageItem";
 import Prayment from "./layout/Prayment";
+import History from "./layout/History";
 
 const router = createBrowserRouter([
   {
@@ -78,6 +79,10 @@ const router = createBrowserRouter([
         path:'manageitem',
         element:<AdminPrivet><ManageItem></ManageItem></AdminPrivet>
       },
+      {
+        path:'history',
+        element:<History></History>
+      }
     ]
   }
 
