@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const cors =require('cors')
 require('dotenv').config()
+const stripe =require('stripe')(process.env.STRIPE_SCIRET)
 const jwt =require('jsonwebtoken')
 const port = process.env.PORT || 3000
  app.use(express.json())
@@ -33,6 +34,7 @@ async function run() {
     const menuCollection = client.db("bristoDB").collection("menu");
     const cartCollection = client.db("bristoDB").collection("cart");
     const userCollection = client.db("bristoDB").collection("user");
+    const paymentCollection = client.db("bristoDB").collection("payments");
 
 
     // console.log(process.env.ACCESS_TOKEN_SECRET)
@@ -77,7 +79,19 @@ const verifyToken= (req,res,next)=>{
   // next()
 }
 
-    app.get('/users',verifyToken,async(req,res)=>{
+// verify admin 
+const verifyAdmin = async (req,res,next)=>{
+  const email = req.decoded.email;
+  const query={email:email}
+  const user = await userCollection.findOne(query)
+  const isAdmin = user?.role==='admin';
+  if(!isAdmin){
+    return res.status(403).send({message:'unathorize error'})
+  }
+  next()
+}
+
+    app.get('/users',verifyToken,verifyAdmin,async(req,res)=>{
       
      const result = await userCollection.find().toArray()
      res.send(result)
@@ -137,6 +151,51 @@ const verifyToken= (req,res,next)=>{
     app.get('/menu',async(req,res)=>{
         const result = await menuCollection.find().toArray()
         res.send(result)
+    })
+    // menu post 
+    app.post('/menu',verifyToken,verifyAdmin,async(req,res)=>{
+      const menuitems = req.body
+      const result = await menuCollection.insertOne(menuitems)
+      res.send(result)
+    })
+
+    // payment intence here all payment stystem is here ...
+    app.post('/create-payment-intent',async(req,res)=>{
+      const {price}=req.body;
+      console.log(price,'price here')
+      const amount = parseInt(price*100)
+      console.log(amount,'here total value')
+      const paymentIndent=  await stripe.paymentIntents.create({
+        amount:amount,
+        currency:'usd',
+        payment_method_types:['card']
+      })
+      res.send({
+        clientSecret:paymentIndent.client_secret
+      })
+    })
+
+    // store data form client 
+    app.post('/payments',async(req,res)=>{
+    try{
+      const payment =req.body 
+      const payresult = await paymentCollection.insertOne(payment)
+      console.log('payment result ',payment)
+      const query={_id:{
+        $in:payment.cardId?.map(id=>new ObjectId(id))
+      }};
+      const deleteResult = await cartCollection.deleteMany(query)
+      
+      res.send({payresult,deleteResult})
+    }catch(err){
+      console.log(err.message,'error message')
+    }
+    })
+    // get payment history 
+    app.get('/payments/:email',async(req,res)=>{
+ const query={email:req.params.email}
+ const result = await paymentCollection.find(query).toArray()
+ res.send(result)
     })
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
